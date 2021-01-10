@@ -1,14 +1,15 @@
 const express = require('express');
 const { route } = require('.');
 const router = express.Router();
-const areaController = require('../controller/area.controller')
+const areaController = require('../controller/area.controller');
+const userController = require('../controller/user.controller');
 
 // Get Area's listening *** 
-router.post('/', areaController.create);
-router.get('/', areaController.getAreas); // get all data 
+router.post('/', userController.authenticated, areaController.create);
+router.get('/',  areaController.getAreas); // get all data 
 router.get('/:id', areaController.getAreaById);
-router.delete('/:id', areaController.getAreaByIdAndDelete);
-router.patch('/:id', areaController.getAreaByIdAndUpdate);
+router.delete('/:id', userController.authenticated, areaController.getAreaByIdAndDelete);
+router.patch('/:id', userController.authenticated, areaController.getAreaByIdAndUpdate);
 
 module.exports = router;
 
